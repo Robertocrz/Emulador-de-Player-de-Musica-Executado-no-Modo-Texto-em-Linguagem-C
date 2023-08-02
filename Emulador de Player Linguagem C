@@ -1,0 +1,133 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int menu();
+void Inserir();        // função de inserir no inicio
+void Listar();         //função de listar
+
+struct PlayList          //estrutura da playlist
+{
+	int dado;
+	char musica[50], banda[50], duracao[50];
+	struct PlayList* prox;
+
+} *Head;
+
+int main()
+{
+	int seguir = 1;
+
+	Head = NULL;
+	do
+	{
+		printf("MENU DE OPCOES\n\n");         //menu de seleção
+		printf("1.Inserir na Lista:\n");
+		printf("2.Listar:\n");
+		printf("3.Sair\n");
+		printf("Escolha uma opcao: \n");
+
+
+		scanf_s("%d", &seguir);
+		system("Cls || clear");
+
+		switch (seguir)
+		{
+
+		case 1:
+			Inserir();
+			break;
+		case 2:
+			Listar();
+			break;
+		case 3:
+			return 0;
+		default:
+			printf("Opcao invalida!");
+
+		}
+	} while (seguir);
+}
+
+int menu()               
+{
+	int op, c;
+	system("Cls");
+
+	printf("1.Inserir na Lista:\n");
+	printf("2.Listar:\n");
+	printf("3.Sair\n");
+	printf("Escolha uma opcao: \n");
+	scanf_s("%d", &op);
+
+	while ((c = getchar()) != '\n' && c != EOF) {}
+
+	system("Cls");
+	return op;
+
+}
+
+void Inserir()                                    //faz a inserção dos dados pelo teclado – inserção no inicio
+{
+	PlayList* NovoElemento;
+	NovoElemento = (struct PlayList*)malloc(sizeof(struct PlayList));
+
+	printf("\nDigite o nome da musica:");
+	fgets(NovoElemento->musica, 50, stdin);
+	system("Cls");
+
+	printf("\nDigite o nome da musica:");
+	fgets(NovoElemento->musica, 50, stdin);
+	system("Cls");
+
+
+	printf("\nDigite o nome da banda:");
+	fgets(NovoElemento->banda, 50, stdin);
+	system("Cls");
+
+	
+
+	printf("\nDigite a duracao da musica:");
+	fgets(NovoElemento->duracao, 50, stdin);
+	system("Cls");
+
+
+	
+
+	if (Head == NULL)
+	{
+		Head = NovoElemento;
+		Head->prox = NULL;
+	}
+	else
+	{
+		NovoElemento->prox = Head;
+		Head = NovoElemento;
+	}
+}
+
+void Listar()                       //faz listagem dos dados inseridos
+{
+
+	PlayList* Varrer;
+	Varrer = (struct PlayList*)malloc(sizeof(struct PlayList));
+
+	Varrer = Head;
+	if (Varrer == NULL) {
+		return;
+	}
+	while (Varrer != NULL)
+	{
+		printf("Nome da musica:%s\n", Varrer->musica);
+		printf("Nome da Banda:%s\n", Varrer->banda);
+		printf("Duracao da Musica:%s\n", Varrer->duracao);
+		Varrer = Varrer->prox;
+
+	}
+
+	printf("\n");
+
+	system("pause");
+	return;
+
+	//encerra o programa
+}
